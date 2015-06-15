@@ -53,13 +53,13 @@ namespace ConsoleApplication1
         {
             if (set == -1)
             {
-                db_handle.query("SELECT id FROM torrents WHERE uploaded = 'last_torrent'");
+                db_handle.query("SELECT size FROM torrents WHERE uploaded = 'last_torrent'");
                 db_handle.result.Read();
-                return Int32.Parse(db_handle.result["id"].ToString());
+                return Int32.Parse(db_handle.result["size"].ToString());
             }
             else
             {
-                db_handle.query("UPDATE torrents SET id = '" + set + "' WHERE uploaded = 'last_torrent'");
+                db_handle.query("UPDATE torrents SET size = '" + set + "' WHERE uploaded = 'last_torrent'");
                 return set;
             }
         }

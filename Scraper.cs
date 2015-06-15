@@ -32,12 +32,12 @@ namespace ConsoleApplication1
             if (html != null)
             {
                 output["title"] = new Regex(@"<div id=""title"">\s*([^<]*)").Match(html).Groups[1].Value.Trim().Replace("'", "\'");
-                output["type"] = new Regex(@"<dt>Type:<\/dt>\s*<dd><a.*"">([^<]*)").Match(html).Groups[1].Value.Trim().Replace("'", "\'");
+                output["type"] = new Regex(@"<dt>Type:<\/dt>\s*<dd><a.*"">([^<]*)").Match(html).Groups[1].Value.Trim().Replace("&gt;",">");
                 output["description"] = new Regex(@"<div class=""nfo"">\s*<pre>([\s\S]*)</pre>").Match(html).Groups[1].Value.Trim().Replace("'","\'");
-                output["magnet"] = new Regex(@"(magnet:\?[^""]*)").Match(html).Groups[1].Value.Trim().Replace("'", "\'");
-                output["size"] = new Regex(@"<dt>Size:<\/dt>\s*<dd>.*?\(([0-9]*)").Match(html).Groups[1].Value.Trim().Replace("'", "\'");
-                output["uploaded"] = new Regex(@"<dt>Uploaded:<\/dt>\s*<dd>([^<]*)").Match(html).Groups[1].Value.Trim().Replace("'", "\'");
-                output["infohash"] = new Regex(@"<dt>Info Hash:<\/dt>\s*<dd><\/dd>\s*([^<]*)").Match(html).Groups[1].Value.Trim().Replace("'", "\'");
+                output["magnet"] = new Regex(@"(magnet:\?[^""]*)").Match(html).Groups[1].Value.Trim();
+                output["size"] = new Regex(@"<dt>Size:<\/dt>\s*<dd>.*?\(([0-9]*)").Match(html).Groups[1].Value.Trim();
+                output["uploaded"] = new Regex(@"<dt>Uploaded:<\/dt>\s*<dd>([^<]*)").Match(html).Groups[1].Value.Trim();
+                output["infohash"] = new Regex(@"<dt>Info Hash:<\/dt>\s*<dd><\/dd>\s*([^<]*)").Match(html).Groups[1].Value.Trim();
             }
             return output;
         }

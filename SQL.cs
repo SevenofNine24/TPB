@@ -33,10 +33,21 @@ namespace ConsoleApplication1
         {
             if (db_handle == null)
                 throw new NullReferenceException("SQLite connection handle was null.");
-            Console.WriteLine("SQL: executing query '" + text + "'");
+            Console.WriteLine("SQL: executing query '" + text.Substring(0,6) + "'");
             command = new SQLiteCommand(text, db_handle);
-            if(text.Contains("SELECT") || expectsresult) reader = command.ExecuteReader();
-            else command.ExecuteNonQuery();
+            if (text.Contains("SELECT") || expectsresult) reader = command.ExecuteReader();
+            else
+            {
+                try
+                {
+                    command.ExecuteNonQuery();       
+                } 
+                catch (SQLiteException e)
+                {
+                    if(e.ErrorCode == 19)
+                        Console.WriteLine("SQLiteException: row already exists (id match)");
+                }
+            }
             return false;
         }
         public void free()
